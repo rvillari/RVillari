@@ -124,7 +124,7 @@ In the console below (not in text), type `install.packages("maps")` and press En
 
 Run this code:
 
-```{r, eval = TRUE, fig.width = 7.5, fig.height = 4}
+```{r,eval = FALSE, fig.width = 7.5, fig.height = 4}
 library('maps') 
 library('ggplot2') 
 
