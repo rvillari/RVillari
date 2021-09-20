@@ -1,15 +1,15 @@
 ---
 title: "Assignments"
 output:
-  pdf_document:
-    toc: no
-    toc_depth: '1'
   html_document:
     toc: yes
     toc_float: yes
     collapsed: no
     number_sections: no
     toc_depth: 1
+  pdf_document:
+    toc: no
+    toc_depth: '1'
 ---
 
 
@@ -124,7 +124,7 @@ In the console below (not in text), type `install.packages("maps")` and press En
 
 Run this code:
 
-```{r, eval = FALSE, fig.width = 7.5, fig.height = 4}
+```{r, eval = TRUE, fig.width = 7.5, fig.height = 4}
 library('maps') 
 library('ggplot2') 
 

@@ -321,7 +321,7 @@ div.tocify {
   <a href="index.html">Home</a>
 </li>
 <li>
-  <a href="Journal.html">Assignments</a>
+  <a href="Assignments.html">Assignments</a>
 </li>
 <li>
   <a href="Links.html">Links</a>
@@ -380,7 +380,7 @@ div.tocify {
 <h3>Problem 5</h3>
 <p>Draw a histogram of <code>Murder</code> with proper labels and title.</p>
 <pre class="r"><code>hist(dat$Murder,main=&quot;Histogram of Murder Arrests in 1973&quot;, xlab=&quot;Murder Arrests In A State per 100,000 Residents&quot;, ylab=&quot;Frequency&quot;)</code></pre>
-<p><img src="Journal_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 </div>
 <div id="problem-6" class="section level3">
 <h3>Problem 6</h3>
@@ -394,12 +394,12 @@ div.tocify {
 <h3>Problem 7</h3>
 <p>Repeat the same steps you followed for <code>Murder</code>, for the variables <code>Assault</code> and <code>Rape</code>. Now plot all three histograms together. You can do this by using the command <code>par(mfrow=c(3,1))</code> and then plotting each of the three.</p>
 <pre class="r"><code>hist(dat$Assault,main=&quot;Histogram of Assault Arrests in USA in 1973&quot;, xlab=&quot;Assault Arrests In A State per 100,000 Residents&quot;, ylab=&quot;Frequency&quot;)</code></pre>
-<p><img src="Journal_files/figure-html/unnamed-chunk-7-1.png" width="480" /></p>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-7-1.png" width="480" /></p>
 <pre class="r"><code>summary(dat$Assault)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##    45.0   109.0   159.0   170.8   249.0   337.0</code></pre>
 <pre class="r"><code>hist(dat$Rape,main=&quot;Histogram of Rape Arrests in USA in 1973&quot;, xlab=&quot;Rape Arrests In A State per 100,000 Residents&quot;, ylab=&quot;Frequency&quot;)</code></pre>
-<p><img src="Journal_files/figure-html/unnamed-chunk-7-2.png" width="480" /></p>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-7-2.png" width="480" /></p>
 <pre class="r"><code>summary(dat$Rape)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##    7.30   15.07   20.10   21.23   26.18   46.00</code></pre>
@@ -407,7 +407,7 @@ div.tocify {
 hist(dat$Murder,main=&quot;Histogram of Murder Arrests in USA in 1973&quot;, xlab=&quot;Murder Arrests per 100,000 Residents In A State&quot;, ylab=&quot;Frequency&quot;)
 hist(dat$Assault,main=&quot;Histogram of Assault Arrests in USA in 1973&quot;, xlab=&quot;Assault Arrests per 100,000 Residents In A State&quot;, ylab=&quot;Frequency&quot;)
 hist(dat$Rape,main=&quot;Histogram of Rape Arrests in USA in 1973&quot;, xlab=&quot;Rape Arrests per 100,000 Residents In A State&quot;, ylab=&quot;Frequency&quot;)</code></pre>
-<p><img src="Journal_files/figure-html/unnamed-chunk-7-3.png" width="480" /></p>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-7-3.png" width="480" /></p>
 <p>The mean value for Assault is 170.76 and the median value is 159. The mean value for Rape is 21.232 and the median value is 20.1</p>
 <p>What does the command par do, in your own words (you can look this up by asking R <code>?par</code>)?</p>
 <p>Answer: par is used to set or query graphical parameters.</p>
