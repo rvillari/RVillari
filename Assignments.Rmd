@@ -91,7 +91,7 @@ The mean of the Murder data is 7.788 and the median is 7.25. The mean is the ave
 
 Repeat the same steps you followed for `Murder`, for the variables `Assault` and `Rape`. Now plot all three histograms together. You can do this by using the command `par(mfrow=c(3,1))` and then plotting each of the three. 
 
-```{r, echo = TRUE, fig.width = 5, fig.height = 8}
+```{r, echo = TRUE, fig.width = 5, fig.height = 5}
 hist(dat$Assault,main="Histogram of Assault Arrests in USA in 1973", xlab="Assault Arrests In A State per 100,000 Residents", ylab="Frequency")
 summary(dat$Assault)
 
