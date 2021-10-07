@@ -138,3 +138,139 @@ What does this code do? Explain what each line is doing.
 Answer: The install.packages command allows us to download and install packages from CRAN-like repositories or from local files. The library command allows one to add the functions installed from the package mentioned above into one's library so that s/he can use those functions when coding. Lastly, the ggplot command initializes a ggplot object. It can be used to "declare the input data frame for a graphic and the specify the set of plot aesthetics intended to be common throughout all subsequent layers unless specifically overridden" (R). Overall, this set of commands creates a graph showing the frequency of murder arrests in each state, with darker blues corresponding to higher frequencies.
 
 $$\\[2in]$$
+
+# Assignment 2
+
+**Collaborators: Sara Whitelaw **
+
+
+### Problem 1 
+
+Load data and set your working directory.
+
+```{r}
+#setwd("/Users/rachaelvillari/Documents/Fall 2021/CRIM250/Assignment 2")
+```
+
+Read the data
+
+```{r}
+dat <- read.csv(file = 'dat.nsduh.small.1.csv')
+```
+
+What are the dimensions of the dataset?  
+
+```{r}
+dim(dat)
+```
+The dimensions are 7 columns by 171 rows
+
+### Problem 2
+
+List the variables contained in the dataset.
+
+```{r}
+names(dat)
+```
+
+The variables in this dataset are named mjage, cigage, iralcage, age2, sexatract, speakengl, and irsex.
+"mjage" gives information on the age at which a respondent first used marijuana or hashish. "cigage" gives information on how old the respondent was when s/he began smoking cigarettes every day. "iralcage" gives the age at which a respondent first tried alcohol. "age2" gives information on the final edited age of the respondent. The age is considered "edited" because there were multiple consistency checks throughout the questionnaire in which the respondent could provide different ages. "irsex" tells us the sex of the respondent (either male or female). "sexatract" provides information on the sexual orientation of the respondent. "speakengl" gives information on how well the respondent speaks English.
+
+What is this dataset about? Who collected the data, what kind of sample is it, and what was the purpose of generating the data?
+Answer:
+This dataset gives information about NSDUH, a household interview survey of substance use, substance use disorders, mental health, and the receipt of treatment services for these disorders in the US.It was collected face-to-face by "field interviewers" who asked questions about less sensitive topics, and then directed respondents to a computer self-interviewing program for more sensitive topics. This dataset collected information from the civilian, noninstitutionalized population, aged 12 or older in all 50 states of the US and DC.The purpose of this dataset is to provide insight into substance use and mental health issues in the US. Doing so helps guide policy directions in addressing things such as problem substances, prevalence of mental illnesses, intersection of substance use and mental illness, and helps agencies make decisions about what types of resources are needed and where resources should be directed.
+
+
+### Problem 3: Age and gender 
+
+What is the age distribution of the sample like? Make sure you read the codebook to know what the variable values mean.
+```{r}
+summary(dat$age2)
+hist(dat$age2,main="Age Distribution of NSDUH Survey Sample", xlab="Age according to codebook", ylab="Frequency")
+```
+The range of this data is from 12 years old (corresponding to "1" in the dataset) to 65+ years old ("17" in the dataset). The median age of this dataset is between 35 to 49 years old, and the mean is somewhere between 30 to 34 years old. However, since the data is skewed towards the higher values in this dataset, the median gives better insight into the data distribution. Overall, the distribution of this sample shows a continuous increase in frequency of age when going from 12 to 49 years old, but then dramatically decreases after 49 years old.
+
+Do you think this age distribution is representative of the US population? Why or why  not?
+Answer:
+I do not think that this age distribution is representative of the US population. For one, any participant that was under 18 was required to have a parent or guardian present for the survey. This definitely could have skewed the sample population, as it would have required availability of both the parents and young adults. Another factor pointing to why this distribution is not representative of the US population is the fact that the proportion of 35 to 49 year old respondents is more than 10-100x that of 12 year olds. This distribution is not plausible in the real world, as older aged subjects are more at risk for life threatening illnesses than 12 year olds. So, if anything, the proportion of ages would be reversed (but still not as large as the one seen in the data's distribution)
+
+Is the sample balanced in terms of gender? If not, are there more females or males?
+```{r}
+hist(dat$irsex,main="Reported Sex of Respondents", xlab="Sex", ylab="Frequency")
+mean(dat$irsex)
+```
+The sample has slightly more male respondents than female respondents. This can be determined by the histogram, which shows a frequency a little over at for males and a frequency of almost 80 for females. We can also tell that the sample has more males than females because the mean is around 1.468 -- a value just slightly under the average of 1 + 2 (1.5). 
+
+Use this code to draw a stacked bar plot to view the relationship between sex and age. What can you conclude from this plot?
+```{r}
+tab.agesex <- table(dat$irsex, dat$age2)
+barplot(tab.agesex,
+        main = "Stacked Barchart of Sex by Age",
+        xlab = "Age category", ylab = "Frequency",
+        legend.text = rownames(tab.agesex),
+        beside = FALSE) # Stacked bars (default)
+```
+This plot tells us a couple things. First, the highest number of respondents were from the age group of 35 to 49 years old and, of this age range, approximately half of the respondents were male and half were female. Additionally, we can see that almost every age category has roughly equal ratios of male to female respondents. Some notable exceptions to this observation are in the 19 and 20 year old groups, which have more females than males and age groups 12-18, which have more male to female respondents. We also see a higher proportion of male:female respondents in the 30-34 and 65+ age groups. Overall, we can conclude that the age distribution skews to the left, with higher ages having a higher number of respondents and, as stated above, all ages have roughly equal ratios of male:female respondents.
+
+
+### Problem 4: Substance use
+
+For which of the three substances included in the dataset (marijuana, alcohol, and cigarettes) do individuals tend to use the substance earlier?
+```{r}
+par(mfrow=c(3,1))
+hist(dat$mjage,main="Age When Respondents First Used Marijuana or Hashish", xlab="Age", ylab="Frequency")
+hist(dat$iralcage,main="Age When Respondents First Tried Alcohol", xlab="Age", ylab="Frequency")
+hist(dat$cigage,main="Age When Respondents Started Smoking Cigarettes Every Dat", xlab="Age", ylab="Frequency")
+
+summary(dat$mjage)
+summary(dat$iralcage)
+summary(dat$cigage)
+```
+Based on the histograms and summaries for all three variables, we are able to determine that individuals tend to use alcohol earlier than cigarettes and marijuana.
+
+### Problem 5: Sexual attraction
+
+What does the distribution of sexual attraction look like? Is this what you expected?
+```{r}
+library(dplyr)
+dat$sexatract <- dat$sexatract %>% na_if(., "85")
+dat$sexatract <- dat$sexatract %>% na_if(., "94")
+dat$sexatract <- dat$sexatract %>% na_if(., "97")
+dat$sexatract <- dat$sexatract %>% na_if(., "98")
+dat$sexatract <- dat$sexatract %>% na_if(., "99")
+hist(dat$sexatract,main="Sexual Attraction of Respondents", xlab="Sexual Orientation According To Codebook", ylab="Frequency")
+```
+This histogram shows the distribution of sexual attraction if the codes 85,94,97,98, and 99 are removed. The distribution shows that by far the highest proportion of respondents reported their sexual attraction as "I am only attracted to the opposite sex", or code "1". There were also respondents who reported either the codes 85,94,97,98 or 99, which excluded them from this question one way or another. Since these responses do not give insight into the sexual orientation of the respondents, these values have been deemed "NA" and therefore do not show in the histogram.
+
+What is the distribution of sexual attraction by gender?
+```{r}
+tab.attgen <- table(dat$irsex, dat$sexatract)
+barplot(tab.attgen,
+        main = "Stacked barchart of sexual attraction by gender",
+        xlab = "Sexual Attraction Category", ylab = "Frequency",
+        legend.text = rownames(tab.attgen),
+        beside = FALSE)
+```
+The sexual attraction category with the highest frequency is "I am only attracted to the opposite sex), or code "1". Of this category, there are overall more males than females. The frequency of respondents corresponding to each sexual attraction category decreases going from 1 to 6. The proportion of females to males is much higher for categories 2 and 3, while the proportion of males to females is higher for categories 5 and 6.
+
+### Problem 6: English speaking
+
+What does the distribution of English speaking look like in the sample? Is this what you might expect for a random sample of the US population?
+```{r}
+hist(dat$speakengl,main="How Well Participants Speak English", xlab="English Proficiency Category", ylab="Frequency")
+```
+The distribution of English speaking in the sample shows that almost all participants responded that they speak English "Very well" (coded as "1"). We also see that the lowest English Proficiency rating given (3) corresponded to speaking "Not Well" rather than the lowest possible response, 4, which would have corresponded to "Not at all". I think that this distribution is what I would expect for this sample, as the surveys were conducted only in English or Spanish, which limits the possible respondent pool, as you cannot give a survey to someone who doesn't understand the language it is given in. However, I think that a random sample of the US population would probably show a little bit more of a spread, with some people responding "4", and more people responding "2" or "3" than we see in the sample distribution.
+
+
+Are there more English speaker females or males?
+```{r}
+tab.langgen <- table(dat$irsex, dat$speakengl)
+barplot(tab.langgen,
+        main = "Stacked barchart of English speakers by gender",
+        xlab = "English Rating Category", ylab = "Frequency",
+        legend.text = rownames(tab.langgen),
+        beside = FALSE)
+```
+
+There are about an equal proportion of males:females for respondents who reported that they spoke English "Very Well". However, we see that almost all respondents who reported they spoke English "Well" were male, while pretty much all respondents who reported that they spoke English "Not well" were female. 
+$$\\[2in]$$
