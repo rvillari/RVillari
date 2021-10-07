@@ -19,17 +19,15 @@ output: html_document
 
 # **Rachael's Website**
 
-This is a template example for lab journaling. Students in Matt Crump's Human Cognition and Performance Lab will use this template to learn R, and other things. Students can replace this text with more fun things. People not in my lab can use this too.
+This is Rachael Villari's Website for CRIM250 at the University of Pennsylvania. Rachael is a senior majoring in neuroscience and minoring in chemistry & psychology.
 
-## How to use
+## Fun Facts About Rachael
 
-1. fork the repo for this website and follow instructions on read me to get set up. [https://github.com/CrumpLab/LabJournalWebsite](https://github.com/CrumpLab/LabJournalWebsite)
+1. Rachael only eats her s'mores if the marshmallow is completely burnt.
 
-2. Blog/journal what you are doing in R, by editing the Journal.Rmd. See the [Journal page](https://crumplab.github.io/LabJournalWebsite/Journal.html) for an example of what to do to get started learning R.
+2. Rachael is the youngest child and only girl in her family (has 3 brothers).
 
-3. See the [links page](https://crumplab.github.io/LabJournalWebsite/Links.html) for lots of helpful links on learning R.
-
-4. Change everything to make it your own.
+3. Rachael's favorite animal is an ostrich.
 
 
 </div>
