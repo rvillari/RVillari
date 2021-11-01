@@ -868,6 +868,95 @@ abline(h = 0, lty=&quot;dashed&quot;)</code></pre>
 </ol>
 <p><strong>No, we cannot conclude this. Our date only shows correlation, not causation. Since this was not a true, controlled experiment, there is the possibility for reverse causation or for a third variable confound. Thus, we can only say that there is a positive correlation between to 2 variables of interest.</strong> <span class="math display">\[\\[2in]\]</span></p>
 </div>
+<div id="exam-2" class="section level1">
+<h1>Exam 2</h1>
+<p>Data description: This dataset provides (simulated) data about 200 police departments in one year. It contains information about the funding received by the department as well as incidents of police brutality. Suppose this dataset (sim.data.csv) was collected by researchers to answer this question: <strong>“Does having more funding in a police department lead to fewer incidents of police brutality?”</strong></p>
+<p>Codebook: - funds: How much funding the police department received in that year in millions of dollars. - po.brut: How many incidents of police brutality were reported by the department that year. - po.dept.code: Police department code</p>
+<div id="problem-1-eda-10-points" class="section level3">
+<h3>Problem 1: EDA (10 points)</h3>
+<p>Describe the dataset and variables. Perform exploratory data analysis for the two variables of interest: funds and po.brut.</p>
+<pre class="r"><code>dat &lt;- read.csv(file = &#39;sim.data.csv&#39;)
+dim(dat)</code></pre>
+<pre><code>## [1] 200   3</code></pre>
+<pre class="r"><code>summary(dat$funds)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   21.40   51.67   59.75   61.04   72.17   99.70</code></pre>
+<pre class="r"><code>summary(dat$po.brut)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    0.00   14.00   19.00   18.14   22.00   29.00</code></pre>
+<pre class="r"><code>hist(dat$funds,main=&quot;Histogram of Police Funds&quot;, xlab=&quot;Funding in millions for that year&quot;, ylab=&quot;Frequency&quot;)</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
+<pre class="r"><code>hist(dat$po.brut,main=&quot;Histogram of Police Brutality&quot;, xlab=&quot;Incidents of police brutality reported that year&quot;, ylab=&quot;Frequency&quot;)</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-37-2.png" width="672" /></p>
+<pre class="r"><code>plot(dat$funds,dat$po.brut, main=&quot;Scatterplot comparing funding in millions vs incidents of police brutality&quot;)</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-37-3.png" width="672" /></p>
+<p><strong>This data set has a total of 600 observations: 200 observations per each of the 3 variables. The three variables present in this data set are funds (how much funding the police dept. received that year in millions of dollars), po.brut (how many incidents of police brutality were reported by the department that year), and po.dept.code (the police department code). The histogram of the funds variable shows a relatively normal distribution with a mean of 61.04 millions of dollars received in funding for that year. The distribution of police brutality is mildly skewed to the right, thus I focused on the median rather than the mean to understand the spread of the data better. The median showed to be 19 incidents of police brutality reported for that year. Looking at the scatter plot of the data, we can see that, on average, it appears as when funding of police departments increases, the number of police brutality incidents decreases.</strong></p>
+</div>
+<div id="problem-2-linear-regression-30-points" class="section level3">
+<h3>Problem 2: Linear regression (30 points)</h3>
+<ol style="list-style-type: lower-alpha">
+<li>Perform a simple linear regression to answer the question of interest. To do this, name your linear model “reg.output” and write the summary of the regression by using “summary(reg.output)”.</li>
+</ol>
+<pre class="r"><code># Remember to remove eval=FALSE!!
+reg.output &lt;- lm(dat$po.brut ~ dat$funds, data = dat)
+summary(reg.output)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = dat$po.brut ~ dat$funds, data = dat)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.9433 -0.2233  0.2544  0.5952  1.1803 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 40.543069   0.282503  143.51   &lt;2e-16 ***
+## dat$funds   -0.367099   0.004496  -81.64   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.9464 on 198 degrees of freedom
+## Multiple R-squared:  0.9712, Adjusted R-squared:  0.971 
+## F-statistic:  6666 on 1 and 198 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p><strong>The linear regression above shows that there is a slope of -0.3671. In other words, it tells us that, on average, as funding of police departments increases by 1 unit in millions, the number of police brutality incidents reported decreases by about 0.3671 incidents. The standard error tells us that the number of police brutality incidents predicted by the equation of this linear regression line can vary by 0.004496 incidents. Additionally, we see that the p-value for this data set is 2^-16, which indicates that the relationship between these two variables is strong and statistically significant. The residual standard error reported is 0.9464, which means that the average amount that the response (police brutality) will deviate from the true regression line is about 0.9464 incidents, on average. R squared tells us that roughly 97% of the variance found in the response variable (police brut) can be explained by the predictor variable (funding).</strong></p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Report the estimated coefficient, standard error, and p-value of the slope. Is the relationship between funds and incidents statistically significant? Explain.</li>
+</ol>
+<p>__See above answer for the reporting of all these values (sorry about the confusion). We know that the relationship between funds and incidents is statistically significant because the p-value is much smaller than 0.05, which is the cut off for statistical significance that most statisticians use. We also can tell that the relationship is statistically significant because the regression summary tells us that the significance is three stars (***).__</p>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>Draw a scatterplot of po.brut (y-axis) and funds (x-axis). Right below your plot command, use abline to draw the fitted regression line, like this:</li>
+</ol>
+<pre class="r"><code># Remember to remove eval=FALSE!!
+plot(dat$funds,dat$po.brut, main=&quot;Scatterplot comparing funding in millions vs incidents of police brutality&quot;)
+abline(reg.output, col = &quot;red&quot;, lwd=2)</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-39-1.png" width="384" /></p>
+<pre class="r"><code>plot(dat$funds, reg.output$residuals, ylim=c(-25,25), main=&quot;Residuals vs. x&quot;, xlab=&quot;x, Funding the police department received that year in millions&quot;, ylab=&quot;Residuals&quot;)
+abline(h = 0, lty=&quot;dashed&quot;)</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-39-2.png" width="384" /></p>
+<pre class="r"><code>plot(reg.output, which=1)</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-39-3.png" width="384" /></p>
+<pre class="r"><code>plot(reg.output, which=3)</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-39-4.png" width="384" /></p>
+<pre class="r"><code>plot(reg.output, which=5)</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-39-5.png" width="384" /></p>
+<pre class="r"><code>plot(reg.output, which=2)</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-39-6.png" width="384" /> Does the line look like a good fit? Why or why not?</p>
+<p><strong>The line looks like a pretty good fit for the data. It appears as a good fit because most of the data points on the graph fall on this line, and those that do not fall on the line don’t seem to deviate wildly from it. However, it is important to note that it looks like the regression line is better for predicting the middle values rather than values on either of the tail ends.</strong></p>
+<ol start="4" style="list-style-type: lower-alpha">
+<li>Are the four assumptions of linear regression satisfied? To answer this, draw the relevant plots. (Write a maximum of one sentence per assumption.) If not, what might you try to do to improve this (if you had more time)?</li>
+</ol>
+<p><strong>When plotting the residuals vs x plot, we see a pretty clear U-shaped pattern. Unfortunately, this indicates that there may be a failure of independence between the errors in the true underlying regression model; thus, the independence assumption is not satisfied for this data set. Looking at the Residuals vs Fitted plot, we see that the red line is pretty curved, not flat. This tells us that there is a discernible non-linear trend to the residuals and therefore the linearity assumption is not satisfied. As for the scale location plot, we again see a pretty strong curve, rather than a flat line; this tells us that the residuals have non-constant variance and therefore the homoscedasticity assumption is not satisfied. The leverage plot tells us that no outlier significantly influences the model fit, as no outlier is outside of Cook’s distance; however, the q-q plot tells us that the residuals skew pretty extremely to the left. Thus, the normal population assumption is not met for this linear regression.</strong></p>
+<ol start="5" style="list-style-type: lower-alpha">
+<li>Answer the question of interest based on your analysis.</li>
+</ol>
+<p><strong>Based on the above linear regression analysis, we cannot confidently say that there is linear relationship between police department funding and police brutality incidents. In other words, it cannot be said that changes in police department funding directly correlates to the number of police brutality incidents.</strong></p>
+</div>
+<div id="problem-3-data-ethics-10-points" class="section level3">
+<h3>Problem 3: Data ethics (10 points)</h3>
+<p>Describe the dataset. Considering our lecture on data ethics, what concerns do you have about the dataset? Once you perform your analysis to answer the question of interest using this dataset, what concerns might you have about the results?</p>
+<p><strong>Although the dataset above was collected by researchers, it still relies on police departments to report accurate and truthful numbers of incidents of police brutality. Relying on the police departments to do this is risky, as the true number of incidents is probably higher than what is reported. This could be due to the fact that police do not want their department to look bad, or because policemen have different interpretations of what qualifies as police brutality. It also could be due to the fact that it is favorable for police to report less incidents when they have higher funding, as it may persuade the public or government to allocate more monetary resources to police departments to avoid brutality incidents. This is a clear conflict of interests. Additionally, as covered in our data ethics lecture, decades of research has shown that police databases are not a complete census of all criminal offences, nor do they constitute a representative random sample. Thus, I have concerns that the dataset is biased, either explicitly or implicitly. My concerns regarding the results are that at a first glance, it seems like there is a strong correlation between funding and brutality incidents and this relationship is one that media may jump to report on. However, once we do proper analysis of the data, we see that using a linear model to predict this relationship is actually quite problematic. Thus, people who do not do proper analysis may incorrectly conclude that there is a definite negative linear relationship between police department funding and police brutality.</strong></p>
+</div>
+</div>
 
 
 
