@@ -980,7 +980,9 @@ library(tidyverse)</code></pre>
 #&gt; ✖ dplyr::filter() masks stats::filter()
 #&gt; ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <p><strong>This chunk installed the tidyverse package and loaded the core tidyverse through the library function. All of the hashtags tell us which functions from tidyverse conflict with functions in base R.</strong></p>
-<p>##First Steps</p>
+</div>
+<div id="first-steps" class="section level2">
+<h2>First Steps</h2>
 <pre class="r"><code>mpg</code></pre>
 <pre><code>## # A tibble: 234 × 11
 ##    manufacturer model      displ  year   cyl trans drv     cty   hwy fl    class
@@ -1009,23 +1011,28 @@ library(tidyverse)</code></pre>
 <p><strong>This loaded a data frame that contains observations collected by the US EPA on 38 models of cars. Two of the variables are “displ” which is a car’s engine size, in litres, and “hwy” which is a car’s efficiency on the highway, in mpg.</strong></p>
 <pre class="r"><code>ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy))</code></pre>
-<p><img src="Assignments_files/figure-html/unnamed-chunk-42-1.png" width="672" /> <strong>This graph shows the relationship between engine size and fuel efficiency. It is a negative relationship. The ggplot() function creates a coordinate system that you can add laters to. The first line in this chunk is the dataset used in the graph. You complete the graph by adding one or more layers with the command geom_point(), which creates a scatter plot. Each geom function takes a mapping argument, which is paired with “aes()” and the x and y arguments of aes().</strong></p>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
+<p><strong>This graph shows the relationship between engine size and fuel efficiency. It is a negative relationship. The ggplot() function creates a coordinate system that you can add laters to. The first line in this chunk is the dataset used in the graph. You complete the graph by adding one or more layers with the command geom_point(), which creates a scatter plot. Each geom function takes a mapping argument, which is paired with “aes()” and the x and y arguments of aes().</strong></p>
 <pre class="r"><code>?mpg
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = hwy, y = cyl))</code></pre>
-<p><img src="Assignments_files/figure-html/unnamed-chunk-43-1.png" width="672" /> <strong>Nothing showed up on the graph when I just run ggplot(data = mpg). Using the ?mpg command, I found out that there are 234 rows and 11 columns. Drv is the type of drive train. The next line shows a scatterplot of hwy vs cyl (number of cylinders).</strong></p>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
+<p><strong>Nothing showed up on the graph when I just run ggplot(data = mpg). Using the ?mpg command, I found out that there are 234 rows and 11 columns. Drv is the type of drive train. The next line shows a scatterplot of hwy vs cyl (number of cylinders).</strong></p>
 <pre class="r"><code>ggplot(data = mpg) + 
   geom_point(mapping = aes(x = class, y = drv))</code></pre>
-<p><img src="Assignments_files/figure-html/unnamed-chunk-44-1.png" width="672" /> <strong>The scatter plot for this is not useful because both variables are qualitative measures.</strong></p>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
+<p><strong>The scatter plot for this is not useful because both variables are qualitative measures.</strong></p>
 </div>
 <div id="aesthetic-mappings" class="section level2">
 <h2>Aesthetic Mappings</h2>
 <pre class="r"><code>ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy, color = class))</code></pre>
-<p><img src="Assignments_files/figure-html/unnamed-chunk-45-1.png" width="672" /> <strong>Colors allowed us to visualize the different categories within the “class” variable. You could also use size as the aesthetic, but isn’t as clear of a graph. Alpha is a gray-scale gradient, shape assigns different shapes. You can also just change the color of all of the dots by specifying a color such as “blue” in place of “class” in the above command.</strong></p>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-45-1.png" width="672" /></p>
+<p><strong>Colors allowed us to visualize the different categories within the “class” variable. You could also use size as the aesthetic, but isn’t as clear of a graph. Alpha is a gray-scale gradient, shape assigns different shapes. You can also just change the color of all of the dots by specifying a color such as “blue” in place of “class” in the above command.</strong></p>
 <pre class="r"><code>ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy, color = &quot;blue&quot;))</code></pre>
-<p><img src="Assignments_files/figure-html/unnamed-chunk-46-1.png" width="672" /> <strong>Here, the parenthesis is not in the correct place. To color the whole graph blue, there should be a parenthesis after hwy to close the aes argument, then you can specify the color.</strong></p>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
+<p><strong>Here, the parenthesis is not in the correct place. To color the whole graph blue, there should be a parenthesis after hwy to close the aes argument, then you can specify the color.</strong></p>
 <p><strong>Categorical variables include manufacturer, model, trans, drv, fl, and class. Continuous variables are displ, year, cyl, cty and hwy.</strong></p>
 <pre class="r"><code>ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy, color = trans))</code></pre>
@@ -1035,7 +1042,9 @@ ggplot(data = mpg) +
 <p><img src="Assignments_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
 <p><strong>Categorical variables use discrete colors for each category within the variable. Continuous variables use a color gradient to indicate increases/decreases in number. If you map multiple aesthetics to the same variable, that variable will include both aesthetics (i.e both size and color would change for different values). It seems as if stroke changes the size of the shapes in reference to a continuous variable. If you map the aesthetic as shown above, it will color the dots according to whether their values are greater or less than 5.</strong></p>
 <p><strong>Make sure when plotting ggplot, the plus sign is at the end of the first line, not the beginning of the second line.</strong></p>
-<p>##Facets</p>
+</div>
+<div id="facets" class="section level2">
+<h2>Facets</h2>
 <pre class="r"><code>ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy)) + 
   facet_wrap(~ class, nrow = 2)</code></pre>
@@ -1052,7 +1061,8 @@ ggplot(data = mpg) +
 <p><strong>If you facet a continuous variable, it converts it into a categorical variable and contains a facet for each different value.</strong></p>
 <pre class="r"><code>ggplot(data = mpg) + 
   geom_point(mapping = aes(x = drv, y = cyl))</code></pre>
-<p><img src="Assignments_files/figure-html/unnamed-chunk-52-1.png" width="672" /> <strong>Empty cells in the facet_grid(drv~cyl) are combinations of drv and cyl that do not have observations. These empty cells correspond to the scatterplot above because the empty cells match where the scatterplot does not have points.</strong></p>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-52-1.png" width="672" /></p>
+<p><strong>Empty cells in the facet_grid(drv~cyl) are combinations of drv and cyl that do not have observations. These empty cells correspond to the scatterplot above because the empty cells match where the scatterplot does not have points.</strong></p>
 <pre class="r"><code>ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy)) +
   facet_grid(drv ~ .)</code></pre>
@@ -1076,22 +1086,26 @@ ggplot(data = mpg) +
 <pre class="r"><code>ggplot(data = mpg) +
   geom_smooth(mapping = aes(x = displ, y = hwy, color = drv), show.legend = FALSE )</code></pre>
 <pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
-<p><img src="Assignments_files/figure-html/unnamed-chunk-54-3.png" width="672" /> <strong>ggplot2 will group the data for these geoms whenever you map an aesthetic to a discrete variable.</strong></p>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-54-3.png" width="672" /></p>
+<p><strong>ggplot2 will group the data for these geoms whenever you map an aesthetic to a discrete variable.</strong></p>
 <pre class="r"><code>ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy)) +
   geom_smooth(mapping = aes(x = displ, y = hwy))</code></pre>
 <pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
-<p><img src="Assignments_files/figure-html/unnamed-chunk-55-1.png" width="672" /> <strong>This is a bit repetitive. Instead, use below plot to create the same graph:</strong></p>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-55-1.png" width="672" /></p>
+<p><strong>This is a bit repetitive. Instead, use below plot to create the same graph:</strong></p>
 <pre class="r"><code>ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
   geom_point() + 
   geom_smooth()</code></pre>
 <pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
-<p><img src="Assignments_files/figure-html/unnamed-chunk-56-1.png" width="672" /> <strong>This treats the mappings as local mappings for the layer only. You can display different aesthetics in different layers, like below:</strong></p>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-56-1.png" width="672" /></p>
+<p><strong>This treats the mappings as local mappings for the layer only. You can display different aesthetics in different layers, like below:</strong></p>
 <pre class="r"><code>ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
   geom_point(mapping = aes(color = class)) + 
   geom_smooth()</code></pre>
 <pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
-<p><img src="Assignments_files/figure-html/unnamed-chunk-57-1.png" width="672" /> <strong>If you want to specify different data for each layer, change the local argument in geom_smooth like this:</strong></p>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
+<p><strong>If you want to specify different data for each layer, change the local argument in geom_smooth like this:</strong></p>
 <pre class="r"><code>ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
   geom_point(mapping = aes(color = class)) + 
   geom_smooth(data = filter(mpg, class == &quot;subcompact&quot;), se = FALSE)</code></pre>
@@ -1114,7 +1128,8 @@ ggplot(data = mpg) +
   geom_point(data = mpg, mapping = aes(x = displ, y = hwy)) + 
   geom_smooth(data = mpg, mapping = aes(x = displ, y = hwy))</code></pre>
 <pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
-<p><img src="Assignments_files/figure-html/unnamed-chunk-60-2.png" width="672" /> <strong>These graphs look the same because putting the specifics in the ggplot argument allows those same specifics to be localized to the below arguments. The second code chunk is the exact same code, just with repetitive coding within the brackets.</strong></p>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-60-2.png" width="672" /></p>
+<p><strong>These graphs look the same because putting the specifics in the ggplot argument allows those same specifics to be localized to the below arguments. The second code chunk is the exact same code, just with repetitive coding within the brackets.</strong></p>
 <pre class="r"><code>ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() +
   geom_smooth(se = FALSE)</code></pre>
@@ -1143,7 +1158,10 @@ ggplot(data = mpg) +
 <pre class="r"><code>ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point(size = 4, color = &quot;white&quot;) +
   geom_point(aes(colour = drv))</code></pre>
-<p><img src="Assignments_files/figure-html/unnamed-chunk-61-6.png" width="672" /> ## Statistical Transformations</p>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-61-6.png" width="672" /></p>
+</div>
+<div id="statistical-transformations" class="section level2">
+<h2>Statistical Transformations</h2>
 <pre class="r"><code>ggplot(data = diamonds) + 
   geom_bar(mapping = aes(x = cut))</code></pre>
 <p><img src="Assignments_files/figure-html/unnamed-chunk-62-1.png" width="672" /></p>
@@ -1164,7 +1182,8 @@ ggplot(data = diamonds) +
 
 ggplot(data = demo) +
   geom_bar(mapping = aes(x = cut, y = freq), stat = &quot;identity&quot;)</code></pre>
-<p><img src="Assignments_files/figure-html/unnamed-chunk-63-1.png" width="672" /> <strong>This overrides the default stat.</strong></p>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-63-1.png" width="672" /></p>
+<p><strong>This overrides the default stat.</strong></p>
 <pre class="r"><code>ggplot(data = diamonds) + 
   geom_bar(mapping = aes(x = cut, y = stat(prop), group = 1))</code></pre>
 <p><img src="Assignments_files/figure-html/unnamed-chunk-64-1.png" width="672" /></p>
@@ -1195,7 +1214,8 @@ ggplot(data = diamonds) +
 <p><img src="Assignments_files/figure-html/unnamed-chunk-66-1.png" width="672" /></p>
 <pre class="r"><code>ggplot(data = diamonds) + 
   geom_bar(mapping = aes(x = cut, fill = color, y = after_stat(prop)))</code></pre>
-<p><img src="Assignments_files/figure-html/unnamed-chunk-66-2.png" width="672" /> <strong>If group = 1 is not included, all the bars will have the same height of 1 because geom_bar assumes that the groups are equal to the x values. There is a problem with the 2 plots because the proportions are calculated within the groups. Also, if we use the fill aesthetic, the heights of the bars need to be normalized.</strong></p>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-66-2.png" width="672" /></p>
+<p><strong>If group = 1 is not included, all the bars will have the same height of 1 because geom_bar assumes that the groups are equal to the x values. There is a problem with the 2 plots because the proportions are calculated within the groups. Also, if we use the fill aesthetic, the heights of the bars need to be normalized.</strong></p>
 </div>
 <div id="position-adjustments" class="section level2">
 <h2>Position Adjustments</h2>
@@ -1208,7 +1228,8 @@ ggplot(data = diamonds) +
 <p><img src="Assignments_files/figure-html/unnamed-chunk-67-2.png" width="672" /></p>
 <pre class="r"><code>ggplot(data = diamonds) + 
   geom_bar(mapping = aes(x = cut, fill = clarity))</code></pre>
-<p><img src="Assignments_files/figure-html/unnamed-chunk-67-3.png" width="672" /> <strong>If you put position=identity, it will place each object where it falls in the context of the graph. It will cause overlapping so you need to make the bars transparent. If position=fill, works like stacking, but makes each set of stacked bars the same height. postion=dodge places overlapping objects beside one another. For scatter plots use position = jitter to add small amount of random nooise to each point – makes the graph less accurate at smalle scales, but more revealing at large scales.</strong></p>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-67-3.png" width="672" /></p>
+<p><strong>If you put position=identity, it will place each object where it falls in the context of the graph. It will cause overlapping so you need to make the bars transparent. If position=fill, works like stacking, but makes each set of stacked bars the same height. postion=dodge places overlapping objects beside one another. For scatter plots use position = jitter to add small amount of random nooise to each point – makes the graph less accurate at smalle scales, but more revealing at large scales.</strong></p>
 <pre class="r"><code>ggplot(data = diamonds, mapping = aes(x = cut, fill = clarity)) + 
   geom_bar(alpha = 1/5, position = &quot;identity&quot;)</code></pre>
 <p><img src="Assignments_files/figure-html/unnamed-chunk-68-1.png" width="672" /></p>
@@ -1288,6 +1309,353 @@ p + coord_fixed()</code></pre>
   #) +
   #&lt;COORDINATE_FUNCTION&gt; +
   #&lt;FACET_FUNCTION&gt;</code></pre>
+<p><span class="math display">\[\\[2in]\]</span></p>
+</div>
+</div>
+<div id="assignment-4-part-2" class="section level1">
+<h1>Assignment 4 Part 2</h1>
+<div id="intro-1" class="section level2">
+<h2>Intro</h2>
+<pre class="r"><code>#install.packages(&quot;ggrepel&quot;)
+#install.packages(&quot;viridis&quot;)
+library(tidyverse)</code></pre>
+</div>
+<div id="label" class="section level2">
+<h2>Label</h2>
+<p><strong>Add labels with the labs() function. You can add title, subtitle or a caption.</strong></p>
+<pre class="r"><code>ggplot(mpg, aes(displ, hwy)) +
+  geom_point(aes(color = class)) +
+  geom_smooth(se = FALSE) +
+  labs(title = &quot;Fuel efficiency generally decreases with engine size&quot;,
+       subtitle = &quot;Two seaters (sports cars) are an exception because of their light weight&quot;,
+    caption = &quot;Data from fueleconomy.gov&quot; )</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-76-1.png" width="672" /></p>
+<p><strong>You can also use mathematical equations instead of text strings. Use quote() instead of "".</strong></p>
+<pre class="r"><code>?plotmath
+df &lt;- tibble(
+  x = runif(10),
+  y = runif(10)
+)
+ggplot(df, aes(x, y)) +
+  geom_point() +
+  labs(
+    x = quote(sum(x[i] ^ 2, i == 1, n)),
+    y = quote(alpha + beta + frac(delta, theta))
+  )</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-77-1.png" width="672" /></p>
+<p>Exercises</p>
+<pre class="r"><code>ggplot(
+  data = mpg,
+  mapping = aes(x = cty, y = hwy)) +
+  geom_point(aes(color = class)) +
+  geom_smooth(se = FALSE) +
+  labs(
+    title = &quot;Highway mpg generally increases with increases in city mpg&quot;,
+    subtitle = &quot;Comparing the city mpg to highway mpg&quot;,
+    caption = &quot;Data from fueleconomy.gov&quot;,
+    x = &quot;Number of Cylinders&quot;,
+    y = &quot;Highway Miles per Gallon&quot; )</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-78-1.png" width="672" /></p>
+<p>Better Model:</p>
+<pre class="r"><code>ggplot(mpg, aes(displ, hwy, colour = class)) +
+  geom_point() +
+  geom_smooth(method = &quot;lm&quot;, se = FALSE) +
+  labs(
+    title = &quot;Fuel Efficiency Mostly Varies by Car Class&quot;,
+    subtitle = &quot;Subcompact caries fuel efficiency varies by engine size&quot;,
+    caption = &quot;Data from fueleconomy.gov&quot;,
+    y = &quot;Highway Miles per Gallon&quot;,
+    x = &quot;Engine Displacement&quot;
+  )</code></pre>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-79-1.png" width="672" /></p>
+</div>
+<div id="annotations" class="section level2">
+<h2>Annotations</h2>
+<p><strong>You can label individual observations with geom_text. First code pulls out the most efficient car in each class and labels it on the plot. You can switch to geom_label to draw a rectangle behind the text. Also use nudge_y to move the labels slightly above corresponding points. Uset eh ggrepel package to adjust labels so they do not overlap.</strong></p>
+<pre class="r"><code>best_in_class &lt;- mpg %&gt;%
+  group_by(class) %&gt;%
+  filter(row_number(desc(hwy)) == 1)
+
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point(aes(colour = class)) +
+  geom_text(aes(label = model), data = best_in_class)</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-80-1.png" width="672" /></p>
+<pre class="r"><code>ggplot(mpg, aes(displ, hwy)) +
+  geom_point(aes(colour = class)) +
+  geom_label(aes(label = model), data = best_in_class, nudge_y = 2, alpha = 0.5)</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-80-2.png" width="672" /></p>
+<pre class="r"><code>ggplot(mpg, aes(displ, hwy)) +
+  geom_point(aes(colour = class)) +
+  geom_point(size = 3, shape = 1, data = best_in_class) +
+  ggrepel::geom_label_repel(aes(label = model), data = best_in_class)</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-80-3.png" width="672" /></p>
+<p><strong>You can replace the legend with labels placed directly on the plot. If you want to add a single label to the plot, you’ll need to create a new data frame. Create a new data frame with summarise() to find max values of x and y. If you want the text in the borders of the plot, use +Inf and -Inf.</strong></p>
+<pre class="r"><code>class_avg &lt;- mpg %&gt;%
+  group_by(class) %&gt;%
+  summarise(
+    displ = median(displ),
+    hwy = median(hwy)
+  )
+#&gt; `summarise()` ungrouping output (override with `.groups` argument)
+
+ggplot(mpg, aes(displ, hwy, colour = class)) +
+  ggrepel::geom_label_repel(aes(label = class),
+    data = class_avg,
+    size = 6,
+    label.size = 0,
+    segment.color = NA
+  ) +
+  geom_point() +
+  theme(legend.position = &quot;none&quot;)</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-81-1.png" width="672" /></p>
+<pre class="r"><code>label &lt;- mpg %&gt;%
+  summarise(
+    displ = max(displ),
+    hwy = max(hwy),
+    label = &quot;Increasing engine size is \nrelated to decreasing fuel economy.&quot;
+  )
+
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point() +
+  geom_text(aes(label = label), data = label, vjust = &quot;top&quot;, hjust = &quot;right&quot;)</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-81-2.png" width="672" /></p>
+<pre class="r"><code>label &lt;- tibble(
+  displ = Inf,
+  hwy = Inf,
+  label = &quot;Increasing engine size is \nrelated to decreasing fuel economy.&quot;
+)
+
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point() +
+  geom_text(aes(label = label), data = label, vjust = &quot;top&quot;, hjust = &quot;right&quot;)</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-81-3.png" width="672" /></p>
+<p><strong>Break up label into lines using “”. Or, use stringr::str_wrap() to automatically add line breaks, given number of charaacters you want per line. hjust and vjust control the alignment of the label. geom_hline() and geom_vline add reference lines. geom_rect draws a rectange around points of interest – boundaries are defined by aesthetics xmin, xmax,ymin, ymax. Use geom_segment with the arrow argument to draw attn to a point with an arrow – use aesthetics x and y to define starting location, xend and y end to define end location.</strong></p>
+<pre class="r"><code>label &lt;- tribble(
+  ~displ, ~hwy, ~label, ~vjust, ~hjust,
+  Inf, Inf, &quot;Top right&quot;, &quot;top&quot;, &quot;right&quot;,
+  Inf, -Inf, &quot;Bottom right&quot;, &quot;bottom&quot;, &quot;right&quot;,
+  -Inf, Inf, &quot;Top left&quot;, &quot;top&quot;, &quot;left&quot;,
+  -Inf, -Inf, &quot;Bottom left&quot;, &quot;bottom&quot;, &quot;left&quot;
+)
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point() +
+  geom_text(aes(label = label, vjust = vjust, hjust = hjust), data = label)</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-82-1.png" width="672" /></p>
+<p><strong>For annotate, use what would be aesthetic mappings directly as arguments.</strong></p>
+<pre class="r"><code>ggplot(mpg, aes(displ, hwy)) +
+  geom_point() +
+  annotate(&quot;text&quot;,
+    x = Inf, y = Inf,
+    label = &quot;Increasing engine size is \nrelated to decreasing fuel economy.&quot;, vjust = &quot;top&quot;, hjust = &quot;right&quot;
+  )</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-83-1.png" width="672" /></p>
+<p><strong>If the facet variable is not specified, the text is put in all facets. If you only want it in one facet, add a column to the label data frame with the value of the faceting variable in which to draw it. To draw labels in different plots, just make sure to have all the facetting variables.</strong></p>
+<pre class="r"><code>label &lt;- tibble(
+  displ = Inf,
+  hwy = Inf,
+  class = &quot;2seater&quot;,
+  label = &quot;Increasing engine size is \nrelated to decreasing fuel economy.&quot;
+)
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point() +
+  geom_text(aes(label = label),
+    data = label, vjust = &quot;top&quot;, hjust = &quot;right&quot;,
+    size = 2
+  ) +
+  facet_wrap(~class)</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-84-1.png" width="672" /></p>
+<pre class="r"><code>label &lt;- tibble(
+  displ = Inf,
+  hwy = Inf,
+  class = unique(mpg$class),
+  label = str_c(&quot;Label for &quot;, class)
+)
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point() +
+  geom_text(aes(label = label),
+    data = label, vjust = &quot;top&quot;, hjust = &quot;right&quot;,
+    size = 3
+  ) +
+  facet_wrap(~class)</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-84-2.png" width="672" /></p>
+<p><strong>You can change the appearance of geom_label using label.padding, label.r (amount of rounding), and label.size. The 4 arguments to arros are angle, length, ends, and type (either open or close).</strong></p>
+</div>
+<div id="scales" class="section level2">
+<h2>Scales</h2>
+<p><strong>Scales control the mapping from data values to things that you can perceive. Usually, ggplot automatically adds scales for you. There are 2 arguments that affect the appearance of ticks on the axes and the keys on the legend: breaks and labels. You can sent labels = NULL to suppress labels all together.If you have few data points, you can also highlight exactly where the observations occur using breaks. Date_labels takes a format specification, date_breaks takes a string (i.e. 2 days, 1 month, etc.</strong></p>
+<pre class="r"><code>ggplot(mpg, aes(displ, hwy)) +
+  geom_point() +
+  scale_y_continuous(breaks = seq(15, 40, by = 5))</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-85-1.png" width="672" /></p>
+<pre class="r"><code>ggplot(mpg, aes(displ, hwy)) +
+  geom_point() +
+  scale_x_continuous(labels = NULL) +
+  scale_y_continuous(labels = NULL)</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-85-2.png" width="672" /></p>
+<pre class="r"><code>presidential %&gt;%
+  mutate(id = 33 + row_number()) %&gt;%
+  ggplot(aes(start, id)) +
+    geom_point() +
+    geom_segment(aes(xend = end, yend = id)) +
+    scale_x_date(NULL, breaks = presidential$start, date_labels = &quot;&#39;%y&quot;)</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-85-3.png" width="672" /></p>
+<p><strong>To control overall position of legend, use theme(). Theme setting legend.position controls where the legend is drawn. To control the display of individual legends, use guides() and guide_legend() or guide_colourbar().</strong></p>
+<pre class="r"><code>base &lt;- ggplot(mpg, aes(displ, hwy)) +
+  geom_point(aes(colour = class))
+
+base + theme(legend.position = &quot;left&quot;)</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-86-1.png" width="672" /></p>
+<pre class="r"><code>base + theme(legend.position = &quot;top&quot;)</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-86-2.png" width="672" /></p>
+<pre class="r"><code>base + theme(legend.position = &quot;bottom&quot;)</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-86-3.png" width="672" /></p>
+<pre class="r"><code>base + theme(legend.position = &quot;right&quot;) # the default</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-86-4.png" width="672" /></p>
+<pre class="r"><code>ggplot(mpg, aes(displ, hwy)) +
+  geom_point(aes(colour = class)) +
+  geom_smooth(se = FALSE) +
+  theme(legend.position = &quot;bottom&quot;) +
+  guides(colour = guide_legend(nrow = 1, override.aes = list(size = 4)))</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-86-5.png" width="672" /></p>
+<pre class="r"><code>#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><strong>You can replace scales altogether. It is easier to see the relationship below if you log transform them, but these change the axes labels. Instead, we can do the transformation with the scale. We can change the color of the scale usig ColorBrewer scales to make it easier to interpret for those with red-green color blindness. You can also add shapes to make it even easier.</strong></p>
+<pre class="r"><code>ggplot(diamonds, aes(carat, price)) +
+  geom_bin2d()</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-87-1.png" width="672" /></p>
+<pre class="r"><code>ggplot(diamonds, aes(log10(carat), log10(price))) +
+  geom_bin2d()</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-87-2.png" width="672" /></p>
+<pre class="r"><code>ggplot(diamonds, aes(carat, price)) +
+  geom_bin2d() + 
+  scale_x_log10() + 
+  scale_y_log10()</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-87-3.png" width="672" /></p>
+<pre class="r"><code>ggplot(mpg, aes(displ, hwy)) +
+  geom_point(aes(color = drv))</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-87-4.png" width="672" /></p>
+<pre class="r"><code>ggplot(mpg, aes(displ, hwy)) +
+  geom_point(aes(color = drv)) +
+  scale_colour_brewer(palette = &quot;Set1&quot;)</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-87-5.png" width="672" /></p>
+<pre class="r"><code>ggplot(mpg, aes(displ, hwy)) +
+  geom_point(aes(color = drv, shape = drv)) +
+  scale_colour_brewer(palette = &quot;Set1&quot;)</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-87-6.png" width="672" /></p>
+<p><strong>When you have a predefined mapping between values and colors, use scale_colour_manuel(). For continuous color, use scale_colour_gradient() or scale_fill_gradient(). If you have a diverging scale, use scale_colour_gradient2(). Also use scale_colour_viridis for good perceptual properties.</strong></p>
+<pre class="r"><code>presidential %&gt;%
+  mutate(id = 33 + row_number()) %&gt;%
+  ggplot(aes(start, id, colour = party)) +
+    geom_point() +
+    geom_segment(aes(xend = end, yend = id)) +
+    scale_colour_manual(values = c(Republican = &quot;red&quot;, Democratic = &quot;blue&quot;))</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-88-1.png" width="672" /></p>
+<pre class="r"><code>df &lt;- tibble(
+  x = rnorm(10000),
+  y = rnorm(10000)
+)
+ggplot(df, aes(x, y)) +
+  geom_hex() +
+  coord_fixed()</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-88-2.png" width="672" /></p>
+<pre class="r"><code>ggplot(df, aes(x, y)) +
+  geom_hex() +
+  viridis::scale_fill_viridis() +
+  coord_fixed()</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-88-3.png" width="672" /></p>
+<p><strong>The following code does not override the default scale because the colors in geom_hex are set by the fill aesthetic, not the color aesthetic. Fix it as shown.</strong></p>
+<pre class="r"><code>ggplot(df, aes(x, y)) +
+  geom_hex() +
+  scale_colour_gradient(low = &quot;white&quot;, high = &quot;red&quot;) +
+  coord_fixed()</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-89-1.png" width="672" /></p>
+<pre class="r"><code>ggplot(df, aes(x, y)) +
+  geom_hex() +
+  scale_fill_gradient(low = &quot;white&quot;, high = &quot;red&quot;) +
+  coord_fixed()</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-89-2.png" width="672" /></p>
+<p><strong>The first argument to every scale is the label for the scale. This is equivalent to using the labs() function.</strong></p>
+<pre class="r"><code>presidential %&gt;%
+  mutate(id = 33L + row_number()) %&gt;%
+  ggplot(aes(start, id, colour = party)) +
+  geom_point() +
+  geom_segment(aes(xend = end, yend = id)) +
+  geom_text(aes(label = name), vjust = &quot;bottom&quot;, nudge_y = 0.2)+
+  scale_colour_manual(values = c(Republican = &quot;red&quot;, Democratic = &quot;blue&quot;))+
+  scale_x_date(&quot;Year in 20th and 21st century&quot;, date_breaks = &quot;4 years&quot;, date_labels = &quot;&#39;%y&quot;)+
+  # scale_x_date(NULL, breaks = presidential$start, date_labels = &quot;&#39;%y&quot;)+
+  scale_y_continuous(breaks = c(36, 39, 42), labels = c(&quot;36th&quot;, &quot;39th&quot;, &quot;42nd&quot;))+
+  labs(y = &quot;President number&quot;, x = &quot;Year&quot;)</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-90-1.png" width="672" /></p>
+<pre class="r"><code>diamonds %&gt;% 
+  ggplot(aes(carat, price)) +
+  geom_point(aes(colour = cut), alpha = 1/20)+
+  guides(colour = guide_legend(override.aes = list(alpha = 1)))</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-90-2.png" width="672" /></p>
+</div>
+<div id="zooming" class="section level2">
+<h2>Zooming</h2>
+<p><strong>Control plot limits by adjusting where data are plotted, setting limits in each scale, setting xlim and ylim in coord_cartesian. To zoom in on region of plot, use coord_cartesian().</strong></p>
+<pre class="r"><code>ggplot(mpg, mapping = aes(displ, hwy)) +
+  geom_point(aes(color = class)) +
+  geom_smooth() +
+  coord_cartesian(xlim = c(5, 7), ylim = c(10, 30))</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-91-1.png" width="672" /></p>
+<pre class="r"><code>mpg %&gt;%
+  filter(displ &gt;= 5, displ &lt;= 7, hwy &gt;= 10, hwy &lt;= 30) %&gt;%
+  ggplot(aes(displ, hwy)) +
+  geom_point(aes(color = class)) +
+  geom_smooth()</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-91-2.png" width="672" /></p>
+<p><strong>Can also set limits on individual scales.This makes it easier to compare plots.</strong></p>
+<pre class="r"><code>suv &lt;- mpg %&gt;% filter(class == &quot;suv&quot;)
+compact &lt;- mpg %&gt;% filter(class == &quot;compact&quot;)
+
+ggplot(suv, aes(displ, hwy, colour = drv)) +
+  geom_point()</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-92-1.png" width="672" /></p>
+<pre class="r"><code>ggplot(compact, aes(displ, hwy, colour = drv)) +
+  geom_point()</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-92-2.png" width="672" /></p>
+<pre class="r"><code>x_scale &lt;- scale_x_continuous(limits = range(mpg$displ))
+y_scale &lt;- scale_y_continuous(limits = range(mpg$hwy))
+col_scale &lt;- scale_colour_discrete(limits = unique(mpg$drv))
+
+ggplot(suv, aes(displ, hwy, colour = drv)) +
+  geom_point() +
+  x_scale +
+  y_scale +
+  col_scale</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-92-3.png" width="672" /></p>
+<pre class="r"><code>ggplot(compact, aes(displ, hwy, colour = drv)) +
+  geom_point() +
+  x_scale +
+  y_scale +
+  col_scale</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-92-4.png" width="672" /></p>
+</div>
+<div id="themes" class="section level2">
+<h2>Themes</h2>
+<p><strong>You can customise non-data elements of your plot with a theme.</strong></p>
+<pre class="r"><code>ggplot(mpg, aes(displ, hwy)) +
+  geom_point(aes(color = class)) +
+  geom_smooth(se = FALSE) +
+  theme_bw()</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-93-1.png" width="672" /></p>
+</div>
+<div id="saving-your-plots" class="section level2">
+<h2>Saving your plots</h2>
+<p><strong>Use ggsave() and knitr to get plots out of R and into final write up. ggsave() will save the most recent plot to disk. To change figure sizing, use fig.width, fig.height, fig.asp, out.width, and out.height. If you want to make the font size consistent across all figures, whenever you set out.width, you’ll also need to adjust fig.width to maintain the same ratio with your default out.width. You can set fig.show = “hold” so that plots are shown after the code, which lets you break up large blocks of code with their explanations. To add a caption to the plot, use fig.cap.</strong></p>
+<pre class="r"><code>ggplot(mpg, aes(displ, hwy)) + geom_point()</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-94-1.png" width="672" /></p>
+<pre class="r"><code>#ggsave(&quot;my-plot.pdf&quot;)
+#&gt; Saving 7 x 4.33 in image</code></pre>
 </div>
 </div>
 
